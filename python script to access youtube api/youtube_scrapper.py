@@ -76,7 +76,7 @@ with open(".venv/secrets.txt", "rt") as secrets:
 # ==============================================================
 
 
-# the loop from where we call the youtube api at a interval of 1 seconds
+# the loop from where we call the youtube api at a interval of a few seconds
 
 # run this loop as long as serial port is available
 
@@ -134,7 +134,7 @@ while(True):
 	
 	# print(serial_str)	# debug
 
-	time.sleep(1)
+	time.sleep(5)
 
 
 # closing the serial port

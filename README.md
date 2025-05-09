@@ -22,7 +22,7 @@ This project tracks a specific YouTube video and displays its stats in real time
 
 ## 🔧 How It Works
 
-A Python script fetches YouTube video data from the **YouTube API** once every second using the **Requests** library. It sends the data to an **Arduino Pro Micro** through serial communication using the **pySerial** library.
+A Python script fetches YouTube video data from the **YouTube API** once every few seconds using the **Requests** library. It sends the data to an **Arduino Pro Micro** through serial communication using the **pySerial** library.
 
 The Arduino receives the data and displays it on a **1.3" OLED screen**. It also uses an **active buzzer** to play a short ping sound whenever there’s a new comment or someone likes or subscribes.
 
@@ -35,7 +35,7 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
 * Runs inside a venv virtual environment
 * A `.bat` file is included to activate the virtual environment and run the script (in background) easily
 * Checks for USB device (port) availability before starting
-* Runs an infinite loop, that fetchs and sends YouTube video data to the Arduino every second
+* Runs an infinite loop, that fetchs and sends YouTube video data to the Arduino every few seconds
 * Breaks out of the loop and Auto-terminates if the Arduino is disconnected or internet connection is lost
 
 **Sketch**
