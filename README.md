@@ -1,8 +1,12 @@
 # YouTube Video Monitor (Arduino + Python)
 
-A small desktop companion that shows live stats of your YouTube video on an OLED screen, using an Arduino Pro Micro and a Python script.
+A small desktop companion that shows live stats of a YouTube video on an OLED screen, using an Arduino Pro Micro and a Python script.
 
+![pic1](https://github.com/user-attachments/assets/56501f45-d0de-41e4-b42f-5e88aa3a3c42)
 
+![pic2](https://github.com/user-attachments/assets/de520bbc-f1c0-4c62-9e7c-bc7d4e2a6c60)
+
+![pic3](https://github.com/user-attachments/assets/090aa0a1-8404-4f21-8a35-e7f26d016da8)
 
 ---
 
@@ -81,7 +85,7 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
 
    This will create a `venv` virtual environment inside `python script to access youtube api` folder, activate it, and install all the dependencies.
 
-4. **Configure Reddit Access**
+4. **Configure YouTube Access**
 
    Create YouTube API Key
 
