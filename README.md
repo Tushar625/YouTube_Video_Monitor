@@ -62,7 +62,7 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
 1. **Clone the Repo**
 
    ```cmd
-   git clone https://github.com/Tushar625/reddit_display
+   git clone https://github.com/Tushar625/YouTube_Video_Monitor
    ```
 
 2. **Upload Arduino Sketch**
