@@ -1,10 +1,6 @@
 
-# this script accesses data from reddit api and feeds it to the serial port
+# this script accesses data from youtube api and feeds it to the serial port
 # from where Arduino reads it and displays
-
-# ====================================================================
-# if you want to run this script keep this instructions in mind
-
 
 # ==================================================================================
 # if you want to run this script keep this instructions in mind
@@ -14,12 +10,12 @@
 # work for you, in that case you replace "ports[0].device" with the name of the port
 # your device is connected to
 # 
-# *** setting up the reddit scrapper ***
-# here you need to have a text file containing all the information this reddit scrapper
-# needs from reddit post url to username and password, check out comments in that portion
-# of the code for more details
+# *** setting up the youtube scrapper ***
+# here you need to have a text file containing all the information this youtube scrapper
+# needs, i.e., api_key and video_id, check out comments in that portion of the code for
+# more details
 # 
-# *** this loop fetches the data and sends it to the serial device ***
+# *** the loop fetches the data and sends it to the serial device ***
 # this portion doesn't need much change if you don't want to change the format of
 # the serial data but still there is a commented print statement for debug purpose, if
 # activated it will print the serial data sent to the port
@@ -58,11 +54,11 @@ arduino = serial.Serial(ports[0].device, 9600);
 
 
 # ==============================================================
-# setting up the reddit scrapper
+# setting up the youtube scrapper
 # ==============================================================
 
 
-# secrets.txt holds the necessary data, one data per line, starting from url to password
+# secrets.txt holds the necessary data, one data per line, line 1: api_key, line 2: video_id
 # I keep secrets.txt in .venv so that git doesn't track it, remember it contains all the
 # sensitive infos, so it must not be a part of this repo
 
@@ -74,15 +70,13 @@ with open(".venv/secrets.txt", "rt") as secrets:
 
 	video_id = secrets.readline().strip()
 
-	channel_id = secrets.readline().strip()
-
 
 # ==============================================================
 # this loop fetches the data and sends it to the serial device
 # ==============================================================
 
 
-# the loop from where we call the reddit api at a interval of 1 seconds
+# the loop from where we call the youtube api at a interval of 1 seconds
 
 # run this loop as long as serial port is available
 
@@ -92,19 +86,21 @@ while(True):
 
 	try:
 
-		v_response = requests.get(url = "https://www.googleapis.com/youtube/v3/videos", params = {"part": "snippet,statistics", "id" : video_id, "key" : api_key})
-
-		c_response = requests.get(url = "https://www.googleapis.com/youtube/v3/channels", params = {"part": "statistics", "id" : channel_id, "key" : api_key})
-
 		# getting video data
+
+		v_response = requests.get(url = "https://www.googleapis.com/youtube/v3/videos", params = {"part": "snippet,statistics", "id" : video_id, "key" : api_key})
 
 		video = v_response.json()["items"][0]
 
-		# the title
+		# the title and channelid
 
-		title = video["snippet"]["title"]
+		snip = video["snippet"]
 
-		# the stats
+		title = snip["title"]
+
+		channel_id = snip["channelId"]
+
+		# the views, likes and no. of comments
 
 		stats = video["statistics"]
 
@@ -115,6 +111,8 @@ while(True):
 		comments = stats["commentCount"]
 
 		# getting channel data
+
+		c_response = requests.get(url = "https://www.googleapis.com/youtube/v3/channels", params = {"part": "statistics", "id" : channel_id, "key" : api_key})
 
 		channel = c_response.json()
 
