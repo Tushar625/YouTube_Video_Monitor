@@ -93,17 +93,13 @@ class OLED_DISPLAY
     };
 
     /*
-        get some data about a reddit post to display in the screen
+        get some data about a youtube video to display in the screen
 
-        score: no. of upvotes - no. of downvotes
+        views, likes, comments (no. of comments), subs (subscribers)
 
-        comments: no. of comments
+        title: title of the video
 
-        title: title of the post
-
-        score_trends: -1 (score is decreasing) 0 (no change) 1 (increase)
-
-        comments_trends: -1 (comments is decreasing) 0 (no change) 1 (increase)
+        trends_values: -1 (value is decreasing) 0 (no change) 1 (increase)
     */
 
     void print_reddit_data(long views, long likes, long comments, long subs, String title, int8_t views_trends = 0, int8_t likes_trends = 0, int8_t comments_trends = 0, int8_t subs_trends = 0)
@@ -138,7 +134,7 @@ class OLED_DISPLAY
             subs_status.set(subs_trends == 1);
         }
 
-        // makes the score and comments strings and add '+' or '-' after to indicate the trends
+        // makes the data strings and add '+' or '-' after to indicate the trends
 
         String views_str = String(views) + views_status.get();
 
@@ -148,7 +144,7 @@ class OLED_DISPLAY
 
         String subs_str = String(subs) + subs_status.get();
 
-        // drawing
+        // drawing the UI
 
         static const unsigned char PROGMEM image_ButtonRightSmall_bits[] = {0x20,0x60,0xe0,0x60,0x20};
 
@@ -235,45 +231,6 @@ class OLED_DISPLAY
         display.print(likes_str);
 
         display.display();
-
-
-        /*
-
-        // cleaning the display
-
-        display.clearDisplay();
-        
-        // placing score string
-
-        display.getTextBounds(score_str, 0, 0, &_x, &_y, &w, &h);
-
-        x = SCREEN_WIDTH / 2 - w / 2;
-
-        y = SCREEN_HEIGHT / 2 - h - 2;
-
-        display.setCursor(x, y);
-
-        display.print(score_str);
-
-        // placing comments string
-
-        display.getTextBounds(comments_str, 0, 0, &_x, &_y, &w, &h);
-
-        x = SCREEN_WIDTH / 2 - w / 2;
-
-        y = SCREEN_HEIGHT / 2 + 2;
-
-        display.setCursor(x, y);
-
-        display.print(comments_str);
-
-        // placing post title
-
-        display.setCursor(0, 0);
-
-        display.print(title);
-
-        display.display();*/
     }
 } OLED; // display and ui object
 

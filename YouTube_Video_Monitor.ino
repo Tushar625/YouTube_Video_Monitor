@@ -45,13 +45,12 @@ void loop() {
 
     // checking if any serial data is available
 
-    // if(false)
     if(Serial.available())
     {
         /*
             reading the serial data
 
-            format of serial data: "{score},{comments},{title}\n
+            format of serial data: "{views},{likes},{comments},{subs},{title}\n"
         */
 
         views = Serial.parseInt();   // reading integer
@@ -72,12 +71,12 @@ void loop() {
         {
             /*
                 previous values are already initialized so we use them to determine
-                the change in score and no. of comments
+                the change in values
             */
 
             if(prev_likes < likes || prev_comments < comments || prev_subs < subs)
             {
-                ping(); // ping when new comments are added
+                ping(); // ping when new likes, subs, or comments are added
             }
 
             OLED.print_reddit_data(
@@ -96,7 +95,7 @@ void loop() {
         {
             /*
                 previous values are not initialized yet as it's the first iteration
-                so send 0 to indicate no change in score or no. of comments
+                so send 0 (default value) to indicate no change in data
             */
 
             OLED.print_reddit_data(views, likes, comments, subs, title);
