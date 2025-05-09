@@ -1,27 +1,26 @@
-# Reddit Post Monitor (Arduino + Python)
+# YouTube Video Monitor (Arduino + Python)
 
-A small desktop companion that shows live stats of your Reddit post on an OLED screen, using an Arduino Pro Micro and a Python script.
+A small desktop companion that shows live stats of your YouTube video on an OLED screen, using an Arduino Pro Micro and a Python script.
 
-![IMG_20250506_230831](https://github.com/user-attachments/assets/8c2c894d-d41e-4944-a10e-a3bdb4b23da3)
+
 
 ---
 
 ## ✨ What It Does
 
-This project tracks a specific Reddit post and displays its stats in real time. It shows:
+This project tracks a specific YouTube video and displays its stats in real time. It shows:
 
-* A portion of the post title
-* The current score (upvotes – downvotes) (with a **+** or **–** to indicate recent changes)
-* Number of comments (also with a **+** or **–** change indicator)
-* A **buzzer sound** when someone comments
+* A portion of the video title
+* Number of Views, likes, comments, and subscribers (with a **+** or **–** to indicate recent changes)
+* A **buzzer sound** when someone likes, comments, or subscribes
 
 ---
 
 ## 🔧 How It Works
 
-A Python script fetches Reddit post data once every second using the **PRAW** library (Reddit API wrapper). It sends the data to an **Arduino Pro Micro** through serial communication using the **pySerial** library.
+A Python script fetches YouTube video data from the **YouTube API** once every second using the **Requests** library. It sends the data to an **Arduino Pro Micro** through serial communication using the **pySerial** library.
 
-The Arduino receives the data and displays it on a **1.3" OLED screen**. It also uses an **active buzzer** to play a short ping sound whenever there’s a new comment.
+The Arduino receives the data and displays it on a **1.3" OLED screen**. It also uses an **active buzzer** to play a short ping sound whenever there’s a new comment or someone likes or subscribes.
 
 ---
 
@@ -32,14 +31,14 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
 * Runs inside a venv virtual environment
 * A `.bat` file is included to activate the virtual environment and run the script (in background) easily
 * Checks for USB device (port) availability before starting
-* Runs an infinite loop, that fetchs and sends Reddit post data to the Arduino every second
+* Runs an infinite loop, that fetchs and sends YouTube video data to the Arduino every second
 * Breaks out of the loop and Auto-terminates if the Arduino is disconnected or internet connection is lost
 
 **Sketch**
 
 * Receives serial data from the python script and displays it
-* Detect if the score or comment count is going up or down and indicates that with **+** (up) and **-** (down) sign
-* Pings the buzzer if comment count is going up
+* Detect if the Views, like, comment, or subscriber count is going up or down and indicates that with **+** (up) and **-** (down) sign
+* Pings the buzzer if like, comment, or subscriber count is going up
 
 ---
 
@@ -53,7 +52,7 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
 
 **Python Libraries:**
 
-* `praw`
+* `requests`
 * `pyserial`
 
 ---
@@ -72,7 +71,7 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
 
 3. **Set up the Python Environment**
 
-   The Python Environment is created inside `python script to access reddit api` folder. Create a `venv` virtual environment inside it and install the dependencies. Open `Command Prompt` inside this folder and run,
+   Open `Command Prompt` inside `python script to access youtube api` folder and run the following commands. 
    
    ```cmd
    python -m venv .venv
@@ -80,16 +79,26 @@ The Arduino receives the data and displays it on a **1.3" OLED screen**. It also
    pip install -r requirements.txt
    ```
 
+   This will create a `venv` virtual environment inside `python script to access youtube api` folder, activate it, and install all the dependencies.
+
 4. **Configure Reddit Access**
 
-   Create Reddit API credentials
+   Create YouTube API Key
 
-   https://youtu.be/0mGpBxuYmpU?si=fChEYfVl4QntOivs
+   https://youtu.be/LLAZUTbc97I?si=Ch9TK1rJHtKX7Eef
 
-   Add your Reddit post URL and Reddit API credentials (client ID, secret, etc.) in the text file accessed by the python script (check out the comments in this script for more details).
+   Add your YouTube API Key and YouTube Video ID of the YouTube video you want to track in the text file accessed by the python script (check out the comments in the python script for more details about this text file).
 
 5. **Run the Script**
    
    Plug in the Arduino to a USB port, activate the virtual environment and run the script, you can also Double-click the `.bat` file to do the same, though it will run the script in background.
+
+---
+
+## 📟 UI Design
+
+I used [lopaka](http://lopaka.app/) to design the UI for this project. Check out the [UI Design](https://lopaka.app/gallery/7867/16273). Here's a tutorial,
+
+https://youtu.be/Eyvzw_ujcS0?si=CqvXaAZHakmCfEcZ
 
 ---
